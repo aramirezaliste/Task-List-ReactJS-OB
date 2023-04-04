@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { LEVELS } from '../../models/levels.enum'
 import { Task } from '../../models/task.class'
 import { TaskComponent } from '../pure/task'
-import { TaskForm } from '../pure/forms/taskForm'
+import {TaskForm} from '../pure/forms/taskForm'
 
 // Importamos la hoja de estilos de task.scss
 import "../../styles/task.scss"
@@ -19,7 +19,7 @@ export const TaskList = () => {
 
     // Estado inicial del componente
     ////Se Agregan un conjunto de tareas
-    const [tasks, setTasks] = useState(defTask1, defTask2, defTask3);
+    const [tasks, setTasks] = useState([defTask1, defTask2, defTask3]);
     // Estado del componente si esta cargando o no.
     const [loading, setLoading] = useState(true);
 
@@ -80,10 +80,11 @@ export const TaskList = () => {
                                 })
                                 }
 
+
                             </tbody>
                         </table>
                     </div>
-                    <TaskForm />
+                    <TaskForm/>
                 </div>
             </div>
         </div>

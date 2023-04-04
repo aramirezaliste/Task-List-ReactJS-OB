@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Task } from "../../models/task.class"
+import { LEVELS } from '../../models/levels.enum'
 
 // Importamos la hoja de estilos de task.scss
 import "../../styles/task.scss"
@@ -42,8 +43,8 @@ export const TaskComponent = ({ task }) => {
                         <span className="badge bg-danger">{task.level}</span>
                     </h6>
                 );
-            default
-								break;
+        default:
+            break;
         }
     }
 
@@ -53,9 +54,9 @@ export const TaskComponent = ({ task }) => {
     */
     function taskCompletedIcon() {
         if (task.completed) {
-            return (<i clasName='bi-toggle-on' style={{ color: "green" }}></i>)
+            return (<i className='bi-toggle-on' style={{ color: "green" }}></i>)
         } else {
-            return (<i clasName='bi-toggle-off' style={{ color: "grey" }}></i>)
+            return (<i className='bi-toggle-off' style={{ color: "grey" }}></i>)
         }
     }
 
@@ -84,7 +85,7 @@ export const TaskComponent = ({ task }) => {
 
                 {/* Metodo con funcion externa, retorna iconos */}
                 {taskCompletedIcon()}
-                <i clasName='bi-trash ps-1' style={{ color: "tomato" }}></i>
+                <i className='bi-trash ps-1' style={{ color: "tomato" }}></i>
 
                 {/*<span>{task.completed ? "Completed" : "Pending"}</span>*/}
             </td>
