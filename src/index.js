@@ -1,5 +1,15 @@
+// index.js
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+// Importando Bootstrap al proyecto
+import "bootstrap/dist/css/bootstrap.css";
+//Importando Bootstrap Icons
+import 'bootstrap-icons/font/boostrap-icons.css';
+
+// Importante: los estilos propios, deben ir debajo de bootstrap para
+// que no los pise.
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
