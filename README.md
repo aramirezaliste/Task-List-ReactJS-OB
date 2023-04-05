@@ -2,7 +2,7 @@
 
 Tecnologia: ReactJS, Bootstrap, Bootstrap-icons, CSS, HTML
 
-##Dependencias
+## Dependencias
 
-##Scripts
+## Scripts
 

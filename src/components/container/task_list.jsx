@@ -38,8 +38,28 @@ export const TaskList = () => {
 
 
     // Funcion para cambiar estado
-    const changeCompleted = (id) => {
-        console.log("TODO: Cambiar estado de una tarea")
+    function completeTask(task){
+        console.log("Complete this Task", task);
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks[index].completed = !tempTasks[index].completed
+        setTasks(tempTasks);
+    }
+
+    // Funcion para borrar tarea
+    function removeTask(task){
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks.splice(index,1)
+        setTasks(tempTasks);
+    }
+
+    // Funcion para añadir tareas desde el Form
+    // Recibe por parametro desde el hijo, la tarea nueva
+    function addTask(task){
+        const tempTasks = [...tasks];
+        tempTasks.push(task);
+        setTasks(tempTasks);
     }
 
     //Se reemplazaran los titulos <h1>, por columnas y rows de bootstrap
@@ -75,7 +95,11 @@ export const TaskList = () => {
                                 es una forma de identificacion unica de los elementos*/}
                                 {tasks.map((task, index) => {
                                     return (
-                                        <TaskComponent key={index} task={task} />
+                                        <TaskComponent 
+                                        key={index} 
+                                        task={task} 
+                                        complete={completeTask} 
+                                        remove={removeTask} />
                                     )
                                 })
                                 }
@@ -84,7 +108,8 @@ export const TaskList = () => {
                             </tbody>
                         </table>
                     </div>
-                    <TaskForm/>
+                    <TaskForm 
+                    add={addTask} />
                 </div>
             </div>
         </div>

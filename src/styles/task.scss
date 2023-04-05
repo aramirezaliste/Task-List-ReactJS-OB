@@ -1,10 +1,6 @@
 /* task.scss */
 
-h1 {
-    color:rgb(55, 166, 116);
-}
-
-.task-name {
-    font-weight: bold;
-    color: cadetblue;
+/*Pointer para cambiar o actualizar el estado*/
+.task-action{
+	cursor: pointer;
 }

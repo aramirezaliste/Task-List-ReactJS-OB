@@ -8,7 +8,7 @@ import { LEVELS } from '../../models/levels.enum'
 // Importamos la hoja de estilos de task.scss
 import "../../styles/task.scss"
 
-export const TaskComponent = ({ task }) => {
+export const TaskComponent = ({ task, complete, remove }) => {
 
     //Para controlar los estados de las tareas
     useEffect(() => {
@@ -43,8 +43,8 @@ export const TaskComponent = ({ task }) => {
                         <span className="badge bg-danger">{task.level}</span>
                     </h6>
                 );
-        default:
-            break;
+            default:
+                break;
         }
     }
 
@@ -54,9 +54,17 @@ export const TaskComponent = ({ task }) => {
     */
     function taskCompletedIcon() {
         if (task.completed) {
-            return (<i className='bi-toggle-on' style={{ color: "green" }}></i>)
+            return (<i onClick={() => { complete(task) }}
+                className='bi-toggle-on task-action'
+                style={{ color: "green" }}>
+
+            </i>)
         } else {
-            return (<i className='bi-toggle-off' style={{ color: "grey" }}></i>)
+            return (<i onClick={() => { complete(task) }}
+                className='bi-toggle-off task-action'
+                style={{ color: "grey" }}>
+
+            </i>)
         }
     }
 
@@ -85,7 +93,11 @@ export const TaskComponent = ({ task }) => {
 
                 {/* Metodo con funcion externa, retorna iconos */}
                 {taskCompletedIcon()}
-                <i className='bi-trash ps-1' style={{ color: "tomato" }}></i>
+                <i onClick={() => { remove(task) }} 
+                className='bi-trash ps-1 task-action' 
+                style={{ color: "tomato" }}>
+
+                </i>
 
                 {/*<span>{task.completed ? "Completed" : "Pending"}</span>*/}
             </td>
@@ -95,6 +107,8 @@ export const TaskComponent = ({ task }) => {
 
 TaskComponent.propTypes = {
     //task, es una instancia de la claseJS Task
-    task: PropTypes.instanceOf(Task),
+    task: PropTypes.instanceOf(Task).isRequired,
+    complete: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
 
 };
