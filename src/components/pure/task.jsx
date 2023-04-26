@@ -68,10 +68,21 @@ export const TaskComponent = ({ task, complete, remove }) => {
         }
     }
 
+    //Renderizado condicional de colores
+    const taskCompleted = {
+        color: 'gray',
+        textDecoration: 'line-through'
+    }
+
+    const taskPending = {
+        fontWeight: 'bold',
+        color: 'tomato'
+    }
+
 
     //Renderizado en formato de tabla
     return (
-        <tr className="fw-normal">
+        <tr className="fw-normal" style={task.completed ? taskCompleted : taskPending}>
             <th>
                 <span className='ms-2'>{task.name}</span>
             </th>
@@ -84,22 +95,15 @@ export const TaskComponent = ({ task, complete, remove }) => {
                 {taskLevelBadge()}
             </td>
             <td className='align-middle'>
-                {/* Metodo de ternarias, devolviendo iconos */}
-                {/* Estilo con colores */}
-                {/* task.completed ? 
-					(<i clasName='bi-toggle-on' style={{color:"green"}}></i>) 
-					: (<i clasName='bi-toggle-off' style={{color:"grey"}}></i>)
-				*/}
-
                 {/* Metodo con funcion externa, retorna iconos */}
                 {taskCompletedIcon()}
-                <i onClick={() => { remove(task) }} 
-                className='bi-trash ps-1 task-action' 
-                style={{ color: "tomato" }}>
+
+                {/* Se le asocia el metodo para borrar tareas al icono*/}
+                <i onClick={() => { remove(task) }}
+                    className='bi-trash ps-1 task-action'
+                    style={{ color: "tomato" }}>
 
                 </i>
-
-                {/*<span>{task.completed ? "Completed" : "Pending"}</span>*/}
             </td>
         </tr>
     );

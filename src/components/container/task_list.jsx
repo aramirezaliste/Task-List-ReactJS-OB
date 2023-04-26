@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { LEVELS } from '../../models/levels.enum'
 import { Task } from '../../models/task.class'
 import { TaskComponent } from '../pure/task'
-import {TaskForm} from '../pure/forms/taskForm'
+import { TaskForm } from '../pure/forms/taskForm'
 
 // Importamos la hoja de estilos de task.scss
 import "../../styles/task.scss"
@@ -26,8 +26,8 @@ export const TaskList = () => {
     // Control de lciclo de vida del componente
     useEffect(() => {
         console.log("El estado del componente TaskList ha sido modificado")
-        // El componente ha dejado de cargar
-        setLoading(false)
+        // El componente ha dejado de cargar despues de 2 segundos
+        setTimeout(() => { setLoading(false) }, 2000)
 
         return () => {
             console.log("El componente TaskList va a desaparecer")
@@ -38,7 +38,7 @@ export const TaskList = () => {
 
 
     // Funcion para cambiar estado
-    function completeTask(task){
+    function completeTask(task) {
         console.log("Complete this Task", task);
         const index = tasks.indexOf(task);
         const tempTasks = [...tasks];
@@ -47,19 +47,72 @@ export const TaskList = () => {
     }
 
     // Funcion para borrar tarea
-    function removeTask(task){
+    function removeTask(task) {
         const index = tasks.indexOf(task);
         const tempTasks = [...tasks];
-        tempTasks.splice(index,1)
+        tempTasks.splice(index, 1)
         setTasks(tempTasks);
     }
 
     // Funcion para añadir tareas desde el Form
     // Recibe por parametro desde el hijo, la tarea nueva
-    function addTask(task){
+    function addTask(task) {
         const tempTasks = [...tasks];
         tempTasks.push(task);
         setTasks(tempTasks);
+    }
+
+    //Componente que devuelve la tabla principal (se podria tener en otro archivo)
+    const Table = () => {
+        return (
+            <table className='col-12'>
+                <thead>
+                    <tr>
+                        <th scope='col'>Title</th>
+                        <th scope='col'>Description</th>
+                        <th scope='col'>Priority</th>
+                        <th scope='col'>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* Se Itera sobre una conjunto de tareas, para renderizarlas */}
+                    {/* key, es una propiedad que hay que darle cuando se itera en el DOM,
+                                es una forma de identificacion unica de los elementos*/}
+                    {tasks.map((task, index) => {
+                        return (
+                            <TaskComponent
+                                key={index}
+                                task={task}
+                                complete={completeTask}
+                                remove={removeTask} />
+                        )
+                    })
+                    }
+                </tbody>
+            </table>
+        )
+    }
+
+    //Variable para almacenar el componente Table y renderizarlo en el componente padre
+    let taskTable
+
+    //Condicional, que renderiza algo dependiendo de la cantidad de tasks
+    if (tasks.length > 0) {
+        taskTable = <Table />
+    } else {
+        taskTable = (
+            <div>
+                <h3>No hay tareas en la lista </h3>
+                <h4>Crear tareas, porfavor</h4>
+            </div>
+        )
+    }
+
+    //Estilo para la condicional loading
+    const loadingStyle = {
+        color: 'gray',
+        fontSize: '30px',
+        fontWeight: 'bold'
     }
 
     //Se reemplazaran los titulos <h1>, por columnas y rows de bootstrap
@@ -80,36 +133,13 @@ export const TaskList = () => {
                     {/* Estilo embebido en linea*/}
                     {/* Si se pasa de los 400px, se crea un scrollbar */}
                     <div className="card-body" data-mbd-perfect-scrollbar="true" style={{ position: "relative", height: "400px" }}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope='col'>Title</th>
-                                    <th scope='col'>Description</th>
-                                    <th scope='col'>Priority</th>
-                                    <th scope='col'>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {/* Se Itera sobre una conjunto de tareas, para renderizarlas */}
-                                {/* key, es una propiedad que hay que darle cuando se itera en el DOM,
-                                es una forma de identificacion unica de los elementos*/}
-                                {tasks.map((task, index) => {
-                                    return (
-                                        <TaskComponent 
-                                        key={index} 
-                                        task={task} 
-                                        complete={completeTask} 
-                                        remove={removeTask} />
-                                    )
-                                })
-                                }
-
-
-                            </tbody>
-                        </table>
+                        {/*Condicional de task, si esta cargada la pagina*/}
+                        {/*TODO: añadir spinner*/}
+                        {loading ? (<p style={loadingStyle}>Loading tasks...</p>) : taskTable}
                     </div>
-                    <TaskForm 
-                    add={addTask} />
+                    <TaskForm
+                        add={addTask}
+                        length={tasks.length} />
                 </div>
             </div>
         </div>

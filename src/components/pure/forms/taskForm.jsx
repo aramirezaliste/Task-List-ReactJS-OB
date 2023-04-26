@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { LEVELS } from '../../../models/levels.enum';
 import { Task } from '../../../models/task.class';
 
-export const TaskForm = ({ add }) => {
+export const TaskForm = ({ add, length }) => {
 
 	//Definiendo las referencias
 	const nameRef = useRef('');
@@ -29,12 +29,11 @@ export const TaskForm = ({ add }) => {
 
 	return (
 		<form onSubmit={addTask} className='d-flex justify-content-center align-items-center mb-4'>
-			<div className='form-outline flex-fill'>
-				<input ref={nameRef} id='inputName' type='text' className='form-control form-control-lg' required autoFocus placeholder='Task Name' />
-				<input ref={descriptionRef} id='inputDescription' type='text' className='form-control form-control-lg' required placeholder='Task Description' />
+			<div className='ms-3 form-outline flex-fill'>
+				<input ref={nameRef} id='inputName' type='text' className='mb-1 form-control form-control-lg' required autoFocus placeholder='Task Name' />
+				<input ref={descriptionRef} id='inputDescription' type='text' className='mb-1 form-control form-control-lg' required placeholder='Task Description' />
 				{/*Dropdown de seleccion*/}
-				<label htmlFor='selectLevel' className='sr-only'>Priority</label>
-				<select ref={levelRef} defaultValue={LEVELS.NORMAL} id='selectLevel'>
+				<select ref={levelRef} defaultValue={LEVELS.NORMAL} id='selectLevel' className="form-select form-control form-control-lg">
 					<option value={LEVELS.NORMAL}>
 						Normal
 					</option>
@@ -46,7 +45,10 @@ export const TaskForm = ({ add }) => {
 					</option>
 				</select>
 			</div>
-			<button type='submit' className='btn btn-success btn-lg ms-3'>Add Task</button>
+			<button type='submit' className='btn btn-success btn-lg mx-3'>
+				{/*Cambia el contenido a traves de logica condicional*/}
+				{length > 0 ? 'Add new task' : 'Create new task'}
+			</button>
 
 		</form>
 	)
