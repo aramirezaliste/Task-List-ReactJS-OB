@@ -20,7 +20,7 @@ export const TaskForm = ({ add, length }) => {
 		const newTask = new Task(
 			nameRef.current.value,
 			descriptionRef.current.value,
-			true,
+			false,
 			levelRef.current.value
 		)
 		//Metodo que recibe del padre, se envia por parametro la tarea nueva
