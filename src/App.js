@@ -6,8 +6,8 @@ import './App.css';
 //import GreetingF from './components/pure/teoria-react/greetingF';
 //import { GreetingSyled } from './components/pure/teoria-react/greetingSyled';
 //import { Father } from './components/pure/teoria-react/father';
+//import { RegisterFormik } from './components/pure/forms/registerFormik';
 import { TaskList } from './components/container/task_list';
-import { RegisterFormik } from './components/pure/forms/registerFormikk';
 
 function App() {
   return (
@@ -23,8 +23,9 @@ function App() {
       {/* Gestion de eventos */}
       {/* <Father/> */}
       {/*</header>*/}
+      {/* <RegisterFormik /> */}
       {/* <TaskList /> */}
-      <RegisterFormik />
+      
     </div>
   );
 }
