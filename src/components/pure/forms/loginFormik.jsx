@@ -1,6 +1,10 @@
 //loginFormik.jsx
 
 import React from 'react';
+
+//Importando react-router-dom
+import { useNavigate } from 'react-router-dom';
+
 //importando Formik
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 //Importando Yup
@@ -23,6 +27,17 @@ const loginSchema = Yup.object().shape(
 );
 
 export const LoginFormik = () => {
+
+    
+    //Para ir a una ruta deseada
+    const navigate = useNavigate();
+
+    //funcion para navegar a una ruta dada
+    //Para react router V6, se ocupa useNavigate, en ves de useHistory
+    const navigateTo = (path) => {
+        navigate(path);
+    }
+
 
     //Objeto con los parametros iniciales (State)
     const initialCredentials = {
@@ -50,7 +65,8 @@ export const LoginFormik = () => {
                     await new Promise((response) => setTimeout(response, 1000));
                     alert(JSON.stringify(values, null, 2));
                     //Guardando los datos en el localStorage del navegador
-                    localStorage.setItem('credentials', values)
+                    await localStorage.setItem('credentials', values);
+                    navigateTo('/profile')
                 }}
             >
                 {/*Obteniendo las props de Formik */}
